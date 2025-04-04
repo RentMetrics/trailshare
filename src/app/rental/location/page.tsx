@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,7 +14,7 @@ interface Location {
   availableVehicles: number[];
 }
 
-export default function LocationSelection() {
+function LocationContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const vehicleId = searchParams.get('vehicleId');
@@ -130,5 +130,13 @@ export default function LocationSelection() {
         <p>© 2024 TrailShare. All rights reserved.</p>
       </footer>
     </div>
+  );
+}
+
+export default function LocationSelection() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <LocationContent />
+    </Suspense>
   );
 } 

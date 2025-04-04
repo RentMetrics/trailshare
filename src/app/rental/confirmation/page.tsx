@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from "next/link";
 import { useSearchParams } from 'next/navigation';
 
-export default function Confirmation() {
+function ConfirmationContent() {
   const searchParams = useSearchParams();
   
   // Mock data - in a real app, this would come from your backend
@@ -125,5 +125,13 @@ export default function Confirmation() {
         <p>© 2024 TrailShare. All rights reserved.</p>
       </footer>
     </div>
+  );
+}
+
+export default function Confirmation() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <ConfirmationContent />
+    </Suspense>
   );
 } 
