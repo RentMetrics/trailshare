@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from "next/link";
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -35,7 +35,7 @@ interface OrderSummary {
   total: number;
 }
 
-export default function Payment() {
+function PaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -420,5 +420,13 @@ export default function Payment() {
         <p>© 2024 TrailShare. All rights reserved.</p>
       </footer>
     </div>
+  );
+}
+
+export default function Payment() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <PaymentContent />
+    </Suspense>
   );
 } 
